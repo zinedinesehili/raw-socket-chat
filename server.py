@@ -1,16 +1,16 @@
 import socket
 import threading
 
-PORT = 12342
+PORT = 12341
 users = {}
 
 def display_message_all(message):
-    for user in users:
-        users[user].sendall(message)
+    for user in users.keys():
+        user.sendall(message)
 
 def handle_client(conn, addr):
     username = conn.recv(1024)
-    users[username] = conn
+    users[conn] = username
 
     display_message_all(username + b" connected")
 
@@ -19,11 +19,11 @@ def handle_client(conn, addr):
         if data == b"/quit":
             display_message_all(username + b" disconnected")
             conn.close()
-            users.pop(username)
+            users.pop(conn)
             break
         if not data:
             display_message_all(username + b" disconnected")
-            users.pop(username)
+            users.pop(conn)
             break
         display_message_all(username + b": " + data)
 
