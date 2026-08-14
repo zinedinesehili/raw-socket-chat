@@ -1,8 +1,10 @@
 import socket
 import threading
 
-PORT = 12341
+PORT = 12343
 users = {}
+
+keywords = [b"/quit", b"/list"]
 
 def display_message_all(message):
     for user in users.keys():
@@ -21,11 +23,15 @@ def handle_client(conn, addr):
             conn.close()
             users.pop(conn)
             break
+        if data == b"/list":
+            username_list = list(users.values())
+            conn.sendall(b"\n".join(username_list))
         if not data:
             display_message_all(username + b" disconnected")
             users.pop(conn)
             break
-        display_message_all(username + b": " + data)
+        if not data in keywords:
+            display_message_all(username + b": " + data)
 
 def main():
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:

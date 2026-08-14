@@ -2,7 +2,8 @@ import socket
 import threading
 
 HOST = "127.0.0.1"
-PORT = 12341
+PORT = 12343
+
 
 def recieve_message(active_socket):
     while True: 
@@ -20,8 +21,8 @@ def main():
 
         s.sendall(username.encode("utf-8"))
         while True:
-            message = input().encode("utf-8")
-            s.sendall(message)
+            message = input()
+            s.sendall(message.encode("utf-8"))
             if message == b"/quit":
                 thread.join()
                 break
