@@ -1,14 +1,18 @@
 import socket
 import threading
+import datetime
 
-PORT = 12343
+PORT = 12341
 users = {}
+
+time = datetime.datetime
 
 keywords = [b"/quit", b"/list"]
 
 def display_message_all(message):
+    timestamp = str(time.now())
     for user in users.keys():
-        user.sendall(message)
+        user.sendall(timestamp.encode() + message)
 
 def handle_client(conn, addr):
     username = conn.recv(1024)
