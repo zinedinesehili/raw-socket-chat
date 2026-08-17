@@ -2,15 +2,25 @@ import socket
 import threading
 import datetime
 
-PORT = 12341
+PORT = 12340
 users = {}
 
 time = datetime.datetime
 
 keywords = [b"/quit", b"/list"]
 
+def format_timestamp(current_time):
+    # TODO
+    return
+
 def display_message_all(message):
-    timestamp = str(time.now())
+    current_time = time.now()
+    year = str(current_time.year)
+    month = str(current_time.month)
+    day = str(current_time.day)
+    hour = str(current_time.hour)
+    minute = str(current_time.minute)
+    timestamp = f"{day}/{month}/{year} {hour}:{minute:02}: "
     for user in users.keys():
         user.sendall(timestamp.encode() + message)
 
