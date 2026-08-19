@@ -11,7 +11,7 @@ def recieve_message(active_socket):
         print(f"{data.decode()}")
 
 def main():
-    ip = input("Enter the address you want to connect to")
+    ip = input("Enter the address you want to connect to: ")
     username = input("Enter your username: ")
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.connect((ip, PORT))
