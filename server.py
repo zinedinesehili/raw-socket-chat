@@ -9,18 +9,18 @@ time = datetime.datetime
 
 keywords = [b"/quit", b"/list"]
 
-def format_timestamp(current_time):
-    # TODO
-    return
+def format_timestamp():
+    current_time = time.now()
+    year = current_time.year
+    month = current_time.month
+    day = current_time.day
+    hour = current_time.hour
+    minute = current_time.minute
+    return(f"{month}/{day}/{year} {hour}:{minute:02}: ")
+
 
 def display_message_all(message):
-    current_time = time.now()
-    year = str(current_time.year)
-    month = str(current_time.month)
-    day = str(current_time.day)
-    hour = str(current_time.hour)
-    minute = str(current_time.minute)
-    timestamp = f"{day}/{month}/{year} {hour}:{minute:02}: "
+    timestamp = format_timestamp()
     for user in users.keys():
         user.sendall(timestamp.encode() + message)
 

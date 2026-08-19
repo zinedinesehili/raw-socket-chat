@@ -22,7 +22,7 @@ def main():
         while True:
             message = input()
             s.sendall(message.encode("utf-8"))
-            if message == b"/quit":
+            if message == "/quit":
                 thread.join()
                 break
 
