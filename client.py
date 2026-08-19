@@ -1,7 +1,6 @@
 import socket
 import threading
 
-HOST = "127.0.0.1"
 PORT = 12340
 
 def recieve_message(active_socket):
@@ -12,9 +11,10 @@ def recieve_message(active_socket):
         print(f"{data.decode()}")
 
 def main():
+    ip = input("Enter the address you want to connect to")
     username = input("Enter your username: ")
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-        s.connect(('localhost', PORT))
+        s.connect((ip, PORT))
         thread = threading.Thread(target=recieve_message, args=(s,))
         thread.start()
 
